@@ -5,22 +5,26 @@ import styles from './TaskForm.module.css';
 interface TaskFormProps {
   onClose: () => void;
   onRefresh: () => void;
+  task?: any;
 }
 
-const TaskForm = ({ onClose, onRefresh }: TaskFormProps) => {
+const TaskForm = ({ onClose, onRefresh, task }: TaskFormProps) => {
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    category: 'General',
-    priority: 'medium',
-    deadline: '',
+    title: task?.title || '',
+    description: task?.description || '',
+    category: task?.category || 'General',
+    priority: task?.priority || 'medium',
+    deadline: task?.deadline ? new Date(task.deadline).toISOString().split('T')[0] : '',
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/tasks', {
-        method: 'POST',
+      const url = task ? `/api/tasks/${task._id}` : '/api/tasks';
+      const method = task ? 'PATCH' : 'POST';
+      
+      const res = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
@@ -32,14 +36,14 @@ const TaskForm = ({ onClose, onRefresh }: TaskFormProps) => {
         onClose();
       }
     } catch (error) {
-      console.error('Failed to create task:', error);
+      console.error('Failed to save task:', error);
     }
   };
 
   return (
     <div className={styles.overlay}>
       <div className={`${styles.modal} glass`}>
-        <h2>Buat Tugas Baru</h2>
+        <h2>{task ? 'Edit Tugas' : 'Buat Tugas Baru'}</h2>
         <form onSubmit={handleSubmit}>
           <div className={styles.field}>
             <label>Judul Tugas</label>

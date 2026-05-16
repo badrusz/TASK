@@ -1,20 +1,18 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/lib/db';
-import Task from '@/models/Task';
+import * as jsonDb from '@/lib/jsonDb';
 
 export async function PATCH(
   request: Request,
   { params }: { params: { id: string } }
 ) {
   try {
-    await connectDB();
     const id = params.id;
     const body = await request.json();
+    const task = await jsonDb.updateTask(id, body);
     
-    const task = await Task.findByIdAndUpdate(id, {
-      ...body,
-      completedAt: body.status === 'completed' ? new Date() : undefined
-    }, { new: true });
+    if (!task) {
+      return NextResponse.json({ error: 'Task not found' }, { status: 404 });
+    }
     
     return NextResponse.json(task);
   } catch (error) {
@@ -27,9 +25,13 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    await connectDB();
     const id = params.id;
-    await Task.findByIdAndDelete(id);
+    const success = await jsonDb.deleteTask(id);
+    
+    if (!success) {
+      return NextResponse.json({ error: 'Task not found' }, { status: 404 });
+    }
+    
     return NextResponse.json({ message: 'Task deleted' });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to delete task' }, { status: 500 });

@@ -244,3 +244,173 @@
   font-style: italic;
   font-size: 0.9rem;
 }
+
+.viewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.taskMainInfo {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.priorityBadge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.high { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+.medium { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+.low { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+
+.taskText h4 {
+  margin-bottom: 2px;
+}
+
+.taskText p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.taskActions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.editBtn, .deleteBtn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.editBtn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: white;
+}
+
+.deleteBtn {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+.editBtn:hover { background: rgba(255, 255, 255, 0.1); }
+.deleteBtn:hover { background: rgba(239, 68, 68, 0.2); }
+
+.centeredView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+}
+
+.centeredView h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+.centeredView p { color: var(--text-muted); margin-bottom: 3rem; }
+
+.largeTimer {
+  transform: scale(1.5);
+}
+
+.analyticsView h2 { margin-bottom: 2rem; }
+
+.analyticsGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+
+.largeChart {
+  padding: 2rem;
+  border-radius: 24px;
+}
+
+.statsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.settingsView h2 { margin-bottom: 2rem; }
+
+.settingsCard {
+  padding: 2.5rem;
+  border-radius: 24px;
+  max-width: 800px;
+}
+
+.settingsGroup {
+  margin-bottom: 2.5rem;
+}
+
+.settingsGroup h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+
+.settingItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.settingItem label { color: var(--text-muted); }
+
+.settingItem input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  outline: none;
+}
+
+.toggleActive {
+  background: var(--primary);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toggleInactive {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--glass-border);
+  transition: all 0.2s;
+}
+
+.toggleActive:hover { transform: scale(1.05); opacity: 0.9; }
+.toggleInactive:hover { background: rgba(255, 255, 255, 0.1); }
+
+.completeIcon {
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.completeIcon:hover {
+  color: var(--success);
+}

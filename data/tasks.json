@@ -1,0 +1,35 @@
+[
+  {
+    "title": "JSON Task",
+    "description": "",
+    "category": "Work",
+    "priority": "high",
+    "deadline": "2026-12-31T00:00:00.000Z",
+    "_id": "1pp2odvw8",
+    "createdAt": "2026-05-16T04:19:26.980Z",
+    "status": "completed",
+    "completedAt": "2026-05-16T04:22:10.684Z"
+  },
+  {
+    "title": "coding",
+    "description": "",
+    "category": "General",
+    "priority": "medium",
+    "deadline": "2026-05-17T00:00:00.000Z",
+    "_id": "8eap5klsu",
+    "createdAt": "2026-05-16T04:21:11.606Z",
+    "status": "completed",
+    "completedAt": "2026-05-16T04:22:00.061Z"
+  },
+  {
+    "title": "Presentasi",
+    "description": "",
+    "category": "Work",
+    "priority": "high",
+    "deadline": "2026-05-16T00:00:00.000Z",
+    "_id": "1zw401g2o",
+    "createdAt": "2026-05-16T04:33:15.974Z",
+    "status": "completed",
+    "completedAt": "2026-05-16T04:34:13.969Z"
+  }
+]

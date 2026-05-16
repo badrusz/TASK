@@ -5,8 +5,8 @@ import styles from './Sidebar.module.css';
 
 interface SidebarProps {
   onAddTask: () => void;
-  activeView: 'dashboard' | 'tasks';
-  onViewChange: (view: 'dashboard' | 'tasks') => void;
+  activeView: 'dashboard' | 'tasks' | 'timer' | 'analytics' | 'settings';
+  onViewChange: (view: 'dashboard' | 'tasks' | 'timer' | 'analytics' | 'settings') => void;
 }
 
 const Sidebar = ({ onAddTask, activeView, onViewChange }: SidebarProps) => {
@@ -29,7 +29,7 @@ const Sidebar = ({ onAddTask, activeView, onViewChange }: SidebarProps) => {
           <div 
             key={item.id} 
             className={`${styles.navItem} ${activeView === item.id ? styles.active : ''}`}
-            onClick={() => (item.id === 'dashboard' || item.id === 'tasks') && onViewChange(item.id as any)}
+            onClick={() => onViewChange(item.id as any)}
           >
             {item.icon}
             <span>{item.label}</span>

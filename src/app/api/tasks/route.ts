@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/lib/db';
-import Task from '@/models/Task';
+import * as jsonDb from '@/lib/jsonDb';
 
 export async function GET() {
   try {
-    await connectDB();
-    const tasks = await Task.find({}).sort({ createdAt: -1 });
-    return NextResponse.json(tasks);
+    const tasks = await jsonDb.getTasks();
+    const sortedTasks = [...tasks].sort((a, b) => 
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+    return NextResponse.json(sortedTasks);
   } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch tasks' }, { status: 500 });
   }
@@ -14,9 +15,8 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    await connectDB();
     const body = await request.json();
-    const task = await Task.create(body);
+    const task = await jsonDb.saveTask(body);
     return NextResponse.json(task, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to create task' }, { status: 500 });
