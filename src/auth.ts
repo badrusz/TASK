@@ -1,12 +1,17 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
-import { getUserByEmail } from "./lib/jsonDb";
+import { getUserByEmail, createUser } from "./lib/jsonDb";
 import { authConfig } from "./auth.config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
   providers: [
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     Credentials({
       credentials: {
         email: { label: "Email", type: "email" },
@@ -31,5 +36,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
     })
   ],
+  callbacks: {
+    ...authConfig.callbacks,
+    async signIn({ user, account, profile }) {
+      if (account?.provider === 'google') {
+        const existingUser = await getUserByEmail(user.email as string);
+        if (!existingUser) {
+          // Automatically create user in jsonDb
+          const newUser = await createUser({
+            email: user.email as string,
+            name: user.name as string,
+          });
+          user.id = newUser._id;
+        } else {
+          user.id = existingUser._id;
+        }
+      }
+      return true;
+    }
+  },
   session: { strategy: "jwt" }
 });
